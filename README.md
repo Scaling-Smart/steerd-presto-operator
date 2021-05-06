@@ -6,44 +6,15 @@ SteerD Presto Operator is a Kubernetes Operator for Presto to manage Presto clus
 
 ## Deploying Operator
 
-### Deploying Operator - Locally
-*Step 1:* Enable metrics server for k8s, if not already enabled. [See this](https://github.com/kubernetes-sigs/metrics-server). This is needed for horizontal pod autoscaling.
+### Deploying Operator
 
-*Step 2:* Build the operator 
+*Step 1:* Enable metrics server, if not already enabled. [See this](https://github.com/kubernetes-sigs/metrics-server). This is needed for horizontal pod autoscaling.
+
+*Step 2:* Deploy the CRD
 ```bash
-$ go build  -o steerd-presto-operator cmd/manager/main.go 
+$ kubectl apply -f deploy/crds/falarica.io_prestos_crd.yaml
 ```
-
-*Step 3:* Deploy the CRD
-```bash
-$  kubectl apply -f    deploy/crds/falarica.io_prestos_crd.yaml
-```
-
-*Step 4:* Start the controller with the right credentials
-```bash
-$ ./steerd-presto-operator -kubeconfig /home/hemant/.kube/config
-```
-
-### Deploying Operator - GKE
-
-*Step 1:* Enable metrics server for GKE, if not already enabled. [See this](https://github.com/kubernetes-sigs/metrics-server). This is needed for horizontal pod autoscaling.
-
-*Step 2:* Create Operator Image Using Google CloudBuild
-```bash
-$ docker/gcloudDockerBuild.sh
-```
-*Step 3:* Deploy the CRD
-```bash
-$  kubectl apply -f    deploy/crds/falarica.io_prestos_crd.yaml
-```
-*Step 4:* Update the Operator yaml with image name 
-```bash
-# Here gcr.io/fluid-tangent-249303/steerd-presto-operator is the name of image. 
-# Replace it with your image name
-$ sed -i 's/REPLACE_IMAGE/gcr.io\/fluid-tangent-249303\/steerd-presto-operator/g' deploy/operator.yaml
-```
-
-*Step 5:* Launch the operator
+*Step 3:* Launch the operator
 ```bash
 $ kubectl apply -f deploy/operator.yaml
 ```  
