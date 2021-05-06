@@ -39,7 +39,7 @@ spec:
  #     secretName: resourcejson1
  #   mountPath: "/etc/resourcejson1"
   imageDetails:
-    name: "trivadis/prestodb:latest" 
+    name: "scalingsmartsa/prestodb:latest" 
     prestoPath: "/opt/presto/etc"
   coordinator:
     memoryLimit: "1Gi"
