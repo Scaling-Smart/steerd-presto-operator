@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: steerd-presto-operator
+  namespace: steerd-presto-operator
 
 ---
 kind: ClusterRole
@@ -32,6 +33,7 @@ metadata:
   name: steerd-presto-operator
 subjects:
   - kind: ServiceAccount
+    namespace: steerd-presto-operator
     name: steerd-presto-operator
 roleRef:
   kind: ClusterRole
@@ -43,6 +45,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: steerd-presto-operator
+  namespace: steerd-presto-operator
 spec:
   replicas: 1
   selector:
@@ -57,6 +60,6 @@ spec:
       containers:
         - name: steerd-presto-operator
           # Replace this with the built image name
-          image: scalingsmartsa/steerd-presto-operator:latest
+          image: scalingsmartsa/steerd-presto-operator:0.1.0
           command: [ "/bin/steerd-presto-operator" ]
           imagePullPolicy: Always

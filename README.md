@@ -14,7 +14,15 @@ SteerD Presto Operator is a Kubernetes Operator for Presto to manage Presto clus
 ```bash
 $ kubectl apply -f deploy/crds/falarica.io_prestos_crd.yaml
 ```
-*Step 3:* Launch the operator
+*Step 3:* Create a new namespace for the Steerd Presto Operator
+```bash
+$ kubectl create ns steerd-presto-operator
+```  
+*Step 4:* modify the namespace where you will install the Steerd Presto Operator
+```bash
+$ sed -i 's/namespace: .*/namespace: steerd-presto-operator/' deploy/operator.yaml
+```
+*Step 5:* Launch the operator
 ```bash
 $ kubectl apply -f deploy/operator.yaml
 ```  
